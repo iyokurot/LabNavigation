@@ -19,8 +19,8 @@ public class ServerTest : MonoBehaviour {
     IEnumerator GetServerData () {
         UnityWebRequest req = UnityWebRequest.Get ("http://localhost:3000/Get");
         req.SetRequestHeader ("key", "KEY");
-        yield return req.Send ();
-        if (req.isError) {
+        yield return req.SendWebRequest ();
+        if (req.isNetworkError) {
             Debug.Log (req.error);
         } else {
             if (req.responseCode == 200) {
@@ -40,9 +40,9 @@ public class ServerTest : MonoBehaviour {
         form.AddField ("newxt", 20);
 
         using (UnityWebRequest req = UnityWebRequest.Post ("http://localhost:3000/Post", form)) {
-            yield return req.Send ();
+            yield return req.SendWebRequest ();
 
-            if (req.isError) {
+            if (req.isNetworkError) {
                 Debug.Log (req.error);
             } else {
                 Debug.Log ("Form upload complete!");
